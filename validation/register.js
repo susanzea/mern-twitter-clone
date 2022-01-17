@@ -26,7 +26,7 @@ module.exports = function validateRegisterInput(data) {
         errors.email = "Email is invalid";
     }
 
-    if (!Validator.isEmpty(data.password)) {
+    if (Validator.isEmpty(data.password)) {
         errors.password = "Password is required";
     }
 
