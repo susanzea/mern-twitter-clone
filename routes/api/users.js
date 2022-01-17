@@ -6,6 +6,7 @@ const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
 const keys = require("../../config/keys");
 const jwt = require('jsonwebtoken');
+const passport = require('passport');
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
@@ -47,6 +48,13 @@ router.post('/register', (req, res) => {
 
 //setting up login route
 router.post("/login", (req, res) => {
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
+
+
     const email = req.body.email;
     const password = req.body.password;
 
